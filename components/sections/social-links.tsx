@@ -3,7 +3,8 @@
 import { PersonalInfo } from '@/lib/data/portfolio'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
-import { Github, Linkedin, Twitter, ExternalLink } from 'lucide-react'
+import { Github, Linkedin, Twitter, ExternalLink, Instagram } from 'lucide-react'
+// import { Github, Linkedin, Twitter, ExternalLink } from 'lucide-react'
 
 interface SocialLinksProps {
   personalInfo: PersonalInfo
@@ -22,6 +23,12 @@ export function SocialLinks({ personalInfo }: SocialLinksProps) {
       url: personalInfo.linkedin,
       icon: Linkedin,
       description: 'Connect on LinkedIn',
+    },
+    {
+      name: 'Instagram',
+      url: personalInfo.instagram,
+      icon: Instagram,
+      description: 'Follow on Instagram',
     },
     {
       name: 'Twitter',

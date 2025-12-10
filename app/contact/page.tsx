@@ -5,8 +5,7 @@ import { personalInfo } from '@/lib/data/portfolio'
 import { ContactForm } from '@/components/sections/contact-form'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
-import { TableOfContents } from '@/components/layout/table-of-contents'
-import { Breadcrumb } from '@/components/layout/breadcrumb'
+import { PageLayout } from '@/components/layout/page-layout'
 import { Copy, Check } from 'lucide-react'
 import { SocialLinks } from '@/components/sections/social-links'
 
@@ -18,11 +17,7 @@ const headings = [
 
 export default function ContactPage() {
   return (
-    <div className="min-h-screen">
-      <div className="container mx-auto px-4 py-16 md:px-6">
-        <Breadcrumb />
-        <div className="mx-auto grid max-w-6xl grid-cols-1 gap-8 lg:grid-cols-[1fr_250px] lg:gap-12 lg:items-start">
-          <div className="space-y-12 min-w-0">
+    <PageLayout headings={headings}>
             <section id="overview" className="space-y-4">
               <h1 className="font-mono text-4xl font-bold">Contact</h1>
               <p className="text-lg leading-7 text-muted-foreground">
@@ -58,12 +53,7 @@ export default function ContactPage() {
                 <SocialLinks personalInfo={personalInfo} />
               </div>
             </section>
-          </div>
-
-          <TableOfContents headings={headings} />
-        </div>
-      </div>
-    </div>
+    </PageLayout>
   )
 }
 

@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from 'next/font/google'
 import './globals.css'
 import { ThemeProvider } from '@/components/theme-provider'
 import { PersonalNameProvider } from '@/lib/contexts/personal-name-context'
+import { PortfolioProvider } from '@/lib/contexts/portfolio-context'
 import { TerminalProvider } from '@/lib/contexts/terminal-context'
 import { SidebarProvider, SidebarInset } from '@/components/ui/sidebar'
 import { AppSidebar } from '@/components/layout/app-sidebar'
@@ -35,17 +36,19 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <ThemeProvider defaultTheme="light" storageKey="portfolio-theme">
-          <PersonalNameProvider defaultName={personalInfo.name}>
-            <TerminalProvider>
-              <SidebarProvider>
-                <AppSidebar />
-                <SidebarInset>
-                  <Header />
-                  <main className="flex-1">{children}</main>
-                </SidebarInset>
-              </SidebarProvider>
-            </TerminalProvider>
-          </PersonalNameProvider>
+          <PortfolioProvider>
+            <PersonalNameProvider defaultName={personalInfo.name}>
+              <TerminalProvider>
+                <SidebarProvider>
+                  <AppSidebar />
+                  <SidebarInset>
+                    <Header />
+                    <main className="flex-1">{children}</main>
+                  </SidebarInset>
+                </SidebarProvider>
+              </TerminalProvider>
+            </PersonalNameProvider>
+          </PortfolioProvider>
         </ThemeProvider>
       </body>
     </html>

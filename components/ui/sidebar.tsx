@@ -28,7 +28,7 @@ import {
 const SIDEBAR_COOKIE_NAME = "sidebar_state"
 const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7
 const SIDEBAR_WIDTH = "16rem"
-const SIDEBAR_WIDTH_MOBILE = "18rem"
+const SIDEBAR_WIDTH_MOBILE = "12rem"
 const SIDEBAR_WIDTH_ICON = "3rem"
 const SIDEBAR_KEYBOARD_SHORTCUT = "b"
 
@@ -181,44 +181,67 @@ function Sidebar({
   }
 
   if (isMobile) {
-    // On mobile, if collapsible is "icon", show icon-only sidebar instead of Sheet
+    // On mobile, if collapsible is "icon", show icon-only sidebar + Sheet for expansion
     if (collapsible === "icon") {
       return (
-        <div
-          className="group peer text-sidebar-foreground flex"
-          data-state="collapsed"
-          data-collapsible="icon"
-          data-variant={variant}
-          data-side={side}
-          data-slot="sidebar"
-        >
+        <>
           <div
-            data-slot="sidebar-gap"
-            className={cn(
-              "relative w-(--sidebar-width-icon) bg-transparent transition-[width] duration-200 ease-linear",
-              "group-data-[side=right]:rotate-180"
-            )}
-          />
-          <div
-            data-slot="sidebar-container"
-            className={cn(
-              "fixed inset-y-0 z-10 flex h-svh w-(--sidebar-width-icon) transition-[left,right,width] duration-200 ease-linear",
-              side === "left"
-                ? "left-0 border-r"
-                : "right-0 border-l",
-              className
-            )}
-            {...props}
+            className="group peer text-sidebar-foreground flex"
+            data-state="collapsed"
+            data-collapsible="icon"
+            data-variant={variant}
+            data-side={side}
+            data-slot="sidebar"
           >
             <div
-              data-sidebar="sidebar"
-              data-slot="sidebar-inner"
-              className="bg-sidebar flex h-full w-full flex-col"
+              data-slot="sidebar-gap"
+              className={cn(
+                "relative w-(--sidebar-width-icon) bg-transparent transition-[width] duration-200 ease-linear",
+                "group-data-[side=right]:rotate-180"
+              )}
+            />
+            <div
+              data-slot="sidebar-container"
+              className={cn(
+                "fixed inset-y-0 z-10 flex h-svh w-(--sidebar-width-icon) transition-[left,right,width] duration-200 ease-linear",
+                side === "left"
+                  ? "left-0 border-r"
+                  : "right-0 border-l",
+                className
+              )}
+              {...props}
             >
-              {children}
+              <div
+                data-sidebar="sidebar"
+                data-slot="sidebar-inner"
+                className="bg-sidebar flex h-full w-full flex-col"
+              >
+                {children}
+              </div>
             </div>
           </div>
-        </div>
+          {/* Sheet for full sidebar on mobile */}
+          <Sheet open={openMobile} onOpenChange={setOpenMobile}>
+            <SheetContent
+              data-sidebar="sidebar"
+              data-slot="sidebar"
+              data-mobile="true"
+              className="bg-sidebar text-sidebar-foreground w-(--sidebar-width) p-0"
+              style={
+                {
+                  "--sidebar-width": SIDEBAR_WIDTH_MOBILE,
+                } as React.CSSProperties
+              }
+              side={side}
+            >
+              <SheetHeader className="sr-only">
+                <SheetTitle>Sidebar</SheetTitle>
+                <SheetDescription>Displays the mobile sidebar.</SheetDescription>
+              </SheetHeader>
+              <div className="flex h-full w-full flex-col">{children}</div>
+            </SheetContent>
+          </Sheet>
+        </>
       )
     }
     // Default mobile behavior: use Sheet for offcanvas
@@ -648,9 +671,9 @@ function SidebarMenuSkeleton({
   showIcon?: boolean
 }) {
   // Random width between 50 to 90%.
-  const width = React.useMemo(() => {
+  const width = React.useState(() => {
     return `${Math.floor(Math.random() * 40) + 50}%`
-  }, [])
+  })[0]
 
   return (
     <div

@@ -1,8 +1,7 @@
 import { skills } from '@/lib/data/portfolio'
 import { SkillCard } from '@/components/sections/skill-card'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { TableOfContents } from '@/components/layout/table-of-contents'
-import { Breadcrumb } from '@/components/layout/breadcrumb'
+import { PageLayout } from '@/components/layout/page-layout'
 
 const headings = [
   { id: 'overview', text: 'Overview', level: 2 },
@@ -21,11 +20,7 @@ export default function SkillsPage() {
   )
 
   return (
-    <div className="min-h-screen">
-      <div className="container mx-auto px-4 py-16 md:px-6">
-        <Breadcrumb />
-        <div className="mx-auto grid max-w-6xl grid-cols-1 gap-8 lg:grid-cols-[1fr_250px] lg:gap-12 lg:items-start">
-          <div className="space-y-12 min-w-0">
+    <PageLayout headings={headings}>
             <section id="overview" className="space-y-4">
               <h1 className="font-mono text-4xl font-bold">Skills</h1>
               <p className="text-lg leading-7 text-muted-foreground">
@@ -65,12 +60,7 @@ export default function SkillsPage() {
                 ))}
               </Tabs>
             </section>
-          </div>
-
-          <TableOfContents headings={headings} />
-        </div>
-      </div>
-    </div>
+    </PageLayout>
   )
 }
 
