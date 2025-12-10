@@ -71,14 +71,6 @@ interface TerminalContextType {
   navigateCommandHistory: (direction: 'up' | 'down') => void
   selectSuggestion: (suggestion: string) => void
   
-  // Interactive Prompt Actions
-  isInPrompt: boolean
-  currentPrompt: number
-  promptAnswers: Record<string, string>
-  handlePromptAnswer: (answer: string) => void
-  cancelPrompt: () => void
-  getCurrentPromptQuestion: () => { key: string; label: string; placeholder: string } | null
-  
   // Legacy support (for backward compatibility)
   setOpenTerminal: (fn: () => void) => void
 }
