@@ -25,7 +25,7 @@ export function ParticleBackground({
 }: ParticleBackgroundProps) {
   const canvasRef = React.useRef<HTMLCanvasElement>(null)
   const particlesRef = React.useRef<Particle[]>([])
-  const animationFrameRef = React.useRef<number>()
+  const animationFrameRef = React.useRef<number | undefined>(undefined)
 
   React.useEffect(() => {
     const canvas = canvasRef.current
