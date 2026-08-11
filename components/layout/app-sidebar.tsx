@@ -9,6 +9,7 @@ import {
   Briefcase,
   FolderKanban,
   Code,
+  BookOpen,
   Mail,
 } from 'lucide-react'
 import {
@@ -29,6 +30,7 @@ const navigation = [
   { name: 'Experience', href: '/experience', icon: Briefcase },
   { name: 'Projects', href: '/projects', icon: FolderKanban },
   { name: 'Skills', href: '/skills', icon: Code },
+  { name: 'Blogs', href: '/blogs', icon: BookOpen },
   { name: 'Contact', href: '/contact', icon: Mail },
 ]
 
